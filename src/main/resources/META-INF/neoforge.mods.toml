@@ -1,0 +1,29 @@
+modLoader = "javafml"
+loaderVersion = "[9,)"
+license = "All rights reserved"
+
+[[mods]]
+modId = "xgeneration"
+version = "${MinecraftVersion}-${ModVersion}"
+displayName = "XGeneration"
+credits = "Thanks for downloading my Mod"
+authors = "Luis"
+displayURL = "https://github.com/Luis-St/Forge-XGeneration"
+description = '''
+Experiments with custom overworld generation and biome pipelines.
+Adds building blocks for bespoke surfaces, cave layers, and sky islands.
+'''
+
+[[dependencies.xgeneration]]
+modId = "neoforge"
+type = "required"
+versionRange = "${NeoForgeVersionRange}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.xgeneration]]
+modId = "minecraft"
+type = "required"
+versionRange = "${MinecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"
