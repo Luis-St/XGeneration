@@ -27,9 +27,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Entry point for the XGeneration terrain experiment mod.
- */
+import java.util.Objects;
+
 @Mod(XGeneration.MOD_ID)
 public final class XGeneration {
 
@@ -38,9 +37,7 @@ public final class XGeneration {
     public static final Logger LOGGER = LogManager.getLogger(XGeneration.class);
 
     public XGeneration(@NotNull ModContainer container) {
-        IEventBus modEventBus = container.getEventBus();
-
-        // Register deferred world-gen content.
+        IEventBus modEventBus = Objects.requireNonNull(container.getEventBus());
         ModWorldgen.init(modEventBus);
     }
 }

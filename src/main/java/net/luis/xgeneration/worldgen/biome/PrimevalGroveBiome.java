@@ -31,16 +31,14 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Utility biome factory that produces a lush moss-heavy forest biome meant as a starting point.
- */
 public final class PrimevalGroveBiome {
 
     private PrimevalGroveBiome() {
     }
 
-    public static Biome create(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> carvers) {
+    public static @NotNull Biome create(@NotNull HolderGetter<PlacedFeature> placedFeatures, @NotNull HolderGetter<ConfiguredWorldCarver<?>> carvers) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.plainsSpawns(spawnBuilder);
         BiomeDefaultFeatures.monsters(spawnBuilder, 95, 5, 100, false);

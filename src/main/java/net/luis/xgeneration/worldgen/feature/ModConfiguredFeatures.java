@@ -29,22 +29,17 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Holds configured feature registrations for XGeneration.
- */
-public final class ModConfiguredFeatures {
+public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> PRIMEVAL_MOSS_PATCH = create("primeval_grove/moss_patch");
 
-    private ModConfiguredFeatures() {
-    }
-
-    private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {
+    private static @NotNull ResourceKey<ConfiguredFeature<?, ?>> create(@NotNull String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(XGeneration.MOD_ID, name));
     }
 
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(@NotNull BootstrapContext<ConfiguredFeature<?, ?>> context) {
         BlockState mossState = Blocks.MOSS_CARPET.defaultBlockState();
         var configuration = new SimpleBlockConfiguration(BlockStateProvider.simple(mossState));
         context.register(PRIMEVAL_MOSS_PATCH, new ConfiguredFeature<>(Feature.SIMPLE_BLOCK, configuration));

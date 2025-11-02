@@ -27,22 +27,17 @@ import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Mirrors vanilla cave settings under a dedicated key so you can tweak parameters without starting from scratch.
- */
-public final class ModCarvers {
+public class ModCarvers {
 
     public static final ResourceKey<ConfiguredWorldCarver<?>> PRIMEVAL_CAVES = create("primeval_caves");
 
-    private ModCarvers() {
-    }
-
-    private static ResourceKey<ConfiguredWorldCarver<?>> create(String name) {
+    private static @NotNull ResourceKey<ConfiguredWorldCarver<?>> create(@NotNull String name) {
         return ResourceKey.create(Registries.CONFIGURED_CARVER, ResourceLocation.fromNamespaceAndPath(XGeneration.MOD_ID, name));
     }
 
-    public static void bootstrap(BootstrapContext<ConfiguredWorldCarver<?>> context) {
+    public static void bootstrap(@NotNull BootstrapContext<ConfiguredWorldCarver<?>> context) {
         HolderGetter<ConfiguredWorldCarver<?>> lookup = context.lookup(Registries.CONFIGURED_CARVER);
         Holder<ConfiguredWorldCarver<?>> vanillaCave = lookup.getOrThrow(Carvers.CAVE);
         context.register(PRIMEVAL_CAVES, vanillaCave.value());

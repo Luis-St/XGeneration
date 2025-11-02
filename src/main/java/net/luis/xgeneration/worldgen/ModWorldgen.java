@@ -24,16 +24,12 @@ import net.luis.xgeneration.worldgen.feature.ModConfiguredFeatures;
 import net.luis.xgeneration.worldgen.feature.ModPlacedFeatures;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.neoforged.bus.api.IEventBus;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Central registration hub for world-generation content (features, biomes, modifiers).
- */
-public final class ModWorldgen {
+public class ModWorldgen {
 
-    private ModWorldgen() {
-    }
-
-    public static void init(net.neoforged.bus.api.IEventBus modEventBus) {
+    public static void init(@NotNull IEventBus modEventBus) {
         // Reserved for future deferred registers (biome modifiers, density functions, etc.).
     }
 

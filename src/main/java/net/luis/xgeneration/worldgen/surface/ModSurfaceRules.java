@@ -21,16 +21,11 @@ package net.luis.xgeneration.worldgen.surface;
 import net.luis.xgeneration.worldgen.biome.ModBiomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Pre-built surface rule snippets that can be plugged into a custom noise generator.
- */
-public final class ModSurfaceRules {
+public class ModSurfaceRules {
 
-    private ModSurfaceRules() {
-    }
-
-    public static SurfaceRules.RuleSource primevalGroveSurface() {
+    public static SurfaceRules.@NotNull RuleSource primevalGroveSurface() {
         SurfaceRules.RuleSource mossFloor = SurfaceRules.ifTrue(
             SurfaceRules.ON_FLOOR,
             SurfaceRules.state(Blocks.MOSS_BLOCK.defaultBlockState())

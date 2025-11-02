@@ -33,24 +33,19 @@ import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.Heightmap;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-/**
- * Registers placed features that reference configured features defined in {@link ModConfiguredFeatures}.
- */
-public final class ModPlacedFeatures {
+public class ModPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> PRIMEVAL_MOSS_PATCH = create("primeval_grove/moss_patch");
 
-    private ModPlacedFeatures() {
-    }
-
-    private static ResourceKey<PlacedFeature> create(String name) {
+    private static @NotNull ResourceKey<PlacedFeature> create(@NotNull String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(XGeneration.MOD_ID, name));
     }
 
-    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+    public static void bootstrap(@NotNull BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> lookup = context.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?, ?>> mossPatch = lookup.getOrThrow(ModConfiguredFeatures.PRIMEVAL_MOSS_PATCH);
 

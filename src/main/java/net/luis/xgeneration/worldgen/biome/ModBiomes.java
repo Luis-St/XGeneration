@@ -28,22 +28,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Registers custom biomes for XGeneration.
- */
-public final class ModBiomes {
+public class ModBiomes {
 
     public static final ResourceKey<Biome> PRIMEVAL_GROVE = create("primeval_grove");
 
-    private ModBiomes() {
-    }
-
-    private static ResourceKey<Biome> create(String name) {
+    private static @NotNull ResourceKey<Biome> create(@NotNull String name) {
         return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(XGeneration.MOD_ID, name));
     }
 
-    public static void bootstrap(BootstrapContext<Biome> context) {
+    public static void bootstrap(@NotNull BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carvers = context.lookup(Registries.CONFIGURED_CARVER);
 

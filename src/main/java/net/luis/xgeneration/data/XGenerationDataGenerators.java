@@ -20,25 +20,26 @@ package net.luis.xgeneration.data;
 
 import net.luis.xgeneration.XGeneration;
 import net.luis.xgeneration.worldgen.ModWorldgen;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-/**
- * Registers data providers that bootstrap the world-generation registry entries.
- */
-public final class XGenerationDataGenerators {
-
-    private XGenerationDataGenerators() {
-    }
-
-    public static void onGatherData(GatherDataEvent event) {
-        var generator = event.getGenerator();
-        var packOutput = generator.getPackOutput();
-        var lookupProvider = event.getLookupProvider();
-
-        var registryBuilder = ModWorldgen.registryBuilder();
-        generator.addProvider(true, new DatapackBuiltinEntriesProvider(packOutput, lookupProvider, registryBuilder, Set.of(XGeneration.MOD_ID)));
-    }
+@EventBusSubscriber(modid = XGeneration.MOD_ID)
+public class XGenerationDataGenerators {
+	
+	@SubscribeEvent
+	public static void onGatherData(GatherDataEvent.@NotNull Server event) {
+		DataGenerator generator = event.getGenerator();
+		PackOutput packOutput = generator.getPackOutput();
+		var lookupProvider = event.getLookupProvider();
+		
+		var registryBuilder = ModWorldgen.registryBuilder();
+		generator.addProvider(true, new DatapackBuiltinEntriesProvider(packOutput, lookupProvider, registryBuilder, Set.of(XGeneration.MOD_ID)));
+	}
 }
