@@ -20,8 +20,11 @@ package net.luis.xgeneration.data;
 
 import net.luis.xgeneration.XGeneration;
 import net.luis.xgeneration.worldgen.ModWorldgen;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.registries.RegistryPatchGenerator;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -29,6 +32,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = XGeneration.MOD_ID)
 public class XGenerationDataGenerators {
@@ -37,9 +41,11 @@ public class XGenerationDataGenerators {
 	public static void onGatherData(GatherDataEvent.@NotNull Server event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
-		var lookupProvider = event.getLookupProvider();
 		
-		var registryBuilder = ModWorldgen.registryBuilder();
-		generator.addProvider(true, new DatapackBuiltinEntriesProvider(packOutput, lookupProvider, registryBuilder, Set.of(XGeneration.MOD_ID)));
+		CompletableFuture<RegistrySetBuilder.PatchedRegistries> patchedRegistries = RegistryPatchGenerator.createLookup(
+			event.getLookupProvider(),
+			ModWorldgen.registryBuilder()
+		);
+		generator.addProvider(true, new DatapackBuiltinEntriesProvider(packOutput, patchedRegistries, Set.of(XGeneration.MOD_ID)));
 	}
 }

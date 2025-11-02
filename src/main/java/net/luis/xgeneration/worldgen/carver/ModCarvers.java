@@ -26,7 +26,13 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Carvers;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.UniformFloat;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.carver.*;
+import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import org.jetbrains.annotations.NotNull;
 
 public class ModCarvers {
@@ -38,8 +44,21 @@ public class ModCarvers {
     }
 
     public static void bootstrap(@NotNull BootstrapContext<ConfiguredWorldCarver<?>> context) {
-        HolderGetter<ConfiguredWorldCarver<?>> lookup = context.lookup(Registries.CONFIGURED_CARVER);
-        Holder<ConfiguredWorldCarver<?>> vanillaCave = lookup.getOrThrow(Carvers.CAVE);
-        context.register(PRIMEVAL_CAVES, vanillaCave.value());
+		HolderGetter<Block> blockLookup = context.lookup(Registries.BLOCK);
+		
+        context.register(PRIMEVAL_CAVES, WorldCarver.CAVE
+			.configured(
+				new CaveCarverConfiguration(
+					0.15F,
+					UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(180)),
+					UniformFloat.of(0.1F, 0.9F),
+					VerticalAnchor.aboveBottom(8),
+					CarverDebugSettings.of(false, Blocks.CRIMSON_BUTTON.defaultBlockState()),
+					blockLookup.getOrThrow(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
+					UniformFloat.of(0.7F, 1.4F),
+					UniformFloat.of(0.8F, 1.3F),
+					UniformFloat.of(-1.0F, -0.4F)
+				)
+			));
     }
 }
